@@ -1,0 +1,31 @@
+len1:
+.LFB24:
+	irmovq $0, %eax
+	jmp .L2
+.L3:
+	addq $1, %rax
+.L2:
+	irmovq $0, %r14	
+	xorq %r14, (%rdi, %rax, 8)
+	jne .L3
+	ret
+.LC0:
+	.string "Answer: %ld\n"
+main:
+.LFB25:
+	subq $8, %rsp
+	irmovq $array, %edi
+	call len1
+	rrmovq %rax, %rdx
+	irmovq $.LC0, %esi
+	irmovq $1, %edi
+	irmovq $0, %eax
+	call __prinf_chk
+	addq $8, %rsp
+	ret
+array:
+	.quad 13
+	.quad 192
+	.quad 2816
+	.quad 40960
+	.quad 0

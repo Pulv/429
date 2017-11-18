@@ -1,0 +1,60 @@
+#Pablo Velasco
+#pcv256
+
+	.pos 0
+init:
+	irmovq Stack, %rsp
+	call main
+	halt
+
+	
+.align 8
+src:
+	.quad 0x00a
+	.quad 0x0b0
+	.quad 0xc00
+dest:
+	.quad 0x111
+	.quad 0x222
+	.quad 0x333
+
+
+main:
+	irmovq src, %rdi
+	irmovq dest, %rsi
+	irmovq src, %r9
+	irmovq $1, %r13
+	xorq %r14, %r14
+loopMain:
+	mrmovq (%r9), %r9
+	andq %r9, %r9
+	je exit
+	addq %r13, %r14
+	addq %r13, %r9
+	jne loopMain
+exit:
+	rrmovq %r14, %rdx
+	call  copy_block
+	ret
+
+copy_block:
+begin:
+	irmovq $1, %r11
+	irmovq $8, %r8
+	xorq %rax, %rax
+	xorq %r10, %r10
+loop:
+	mrmovq (%rdi), %r10
+	addq %r8, %rdi
+	rmmovq %r10, (%rsi)
+	addq %r8, %rsi
+	xorq %r10, %rax
+	subq %r11, %rdx
+	rrmovq %rdx, %rcx
+	andq %rcx, %rcx
+	jg loop
+end:
+	ret 
+
+	.pos 0x100
+Stack:

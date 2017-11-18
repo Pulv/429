@@ -1,0 +1,60 @@
+Pablo Velasco
+pcv256
+
+1)
+	vector.c
+
+2)
+	vector
+
+3) / 4)
+
+-g
+Length 1 million:
+Time combine1: .002000
+CPE:4
+Time combine2: .001000
+CPE:2
+Time combine3: .001000   
+CPE:1
+
+Length 2 million:
+Time combine1: .001000 
+CPE:15
+Time combine2: .000000
+CPE:6
+Time combine3: .001000   
+CPE:2
+
+-O2
+Length 1 million:
+Time combine1: .001000 
+CPE:0
+Time combine2: .001000 
+CPE:0
+Time combine3: .000000	
+CPE:0
+
+Length 2 million:
+Time combine1: .001000 
+CPE:10
+Time combine2: .001000  
+CPE:1
+Time combine3: .001000  
+CPE:0
+
+5)
+
+     Method      |   Integer     |  Floating Point |
+----------------------------------------------------
+                 |   +   |   x   |    +   |    x   |
+abstract -g      | 42.06 | 41.86 |  41.44 | 160.00 |
+----------------------------------------------------
+abstract -O2     | 31.25 | 33.25 |  31.25 | 143.00 |
+----------------------------------------------------
+move vec_length  | 20.66 | 21.25 |  21.15 | 135.00 |
+----------------------------------------------------
+data access      | 6.00  | 9.00  |  8.00  | 117.00 |
+----------------------------------------------------
+accum in temp    | 2.00  | 4.00  |  3.00  | 5.00   |
+----------------------------------------------------

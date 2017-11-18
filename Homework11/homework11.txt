@@ -1,0 +1,59 @@
+Audric Ganser
+ag46372
+HW 11
+
+1.
+		|	      line 0     	   |	     line 1          |
+	----------------------------------------------------------
+	 set| Tag  Valid | B0 B1 B2 B3 | Tag Valid | B0 B1 B2 B3 |
+	  0 |            |             |           |             |
+	  1 | EA     1   | 22 32 A1 23 |           |             |
+	  2 | EB     1   | 55 91 73 FC |           |             |
+	  3 | EB     1   | 65 10 2B 4D | EA   1    | 56 01 B2 D4 |  
+	  4 |            |             |           |             |
+	  5 |            |             |           |             |
+	  6 |            |             |           |             |
+	  7 |            |             |           |             |
+	----------------------------------------------------------
+	a) Read from address 0x1D47 - 23
+	b) Read from address 0x1D6D - 10
+	c) Read from address 0x1D69 - 91
+	d) Read from address 0x1D4C - 56
+	e) Read from address 0x1D45 - 22
+
+
+2.
+	Rotational rate                      15,000 RPM
+	Tavg seek                                4ms
+	Avg number of sectors/track          800
+
+	Tavg rotation = 1/2 * Tmax rotation = 1/2 * (60sec/15,000 RPM) * 1,000  = 2 ms
+	Tavg transfer = 60/15,000 RPM * 1/800 * 1,000 ms/sec = 0.005 ms
+
+    	Taccess = Tavg seek + Tavg rotation + Tavg transfer = 4 + 2 + 0.005 = 6.005ms
+
+3. Problem 6.28
+	a) It does not hit any valid sets, so it does not reference things.
+	b) 0x18f0 - 0x18f3 (line 0), 0xb0 - 0xb3 (line 1) 
+	c) 0xe34 - 0xe37 (line 0), 
+	d) 0x1bdc - 0x1bdf (line 1)
+
+4. Problem 6.29
+	a) CT CT CT CT CT CT CT CT CT CI CI CO CO
+	b)
+		Hit:				Read Value:
+	1)	No, invalid bit			None
+	2)	Yes, hit for write		Unknown
+	3)	Yes				C0	
+			
+
+5. Problem 6.30
+	a) 128 bytes
+	b) CT CT CT CT CT CT CT CT CI CI CI CO CO
+
+6. Problem 6.36
+	a)
+	b)
+	c)
+	d)
+	e)

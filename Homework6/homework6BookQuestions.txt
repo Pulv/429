@@ -1,0 +1,40 @@
+Book #3.58:
+decode2:
+	// y = y-z
+	// x = x * y
+	// %rax = y
+	// %rax = %rax << 63
+	// %rax = %rax >> 63
+	// %rax = x ^ %rax
+	// ret
+
+long decode2(long x, long y, long z)
+{
+	y = y - z;
+	x = x * y;
+	y = y << 63;
+	y = y >> 63;
+	y = y ^ x;
+	
+	return y;
+}
+
+
+Book #3.60
+
+A: x = %rdi, n = %esi, result = %rax, mask = %r8
+B: result = 0, mask = 1
+C: mask != 0
+D: Left shifts it by the lowest byte value of n
+E: result |= (x & mask)
+F: 
+long loop(long x, long n)
+{
+	long result = 0;
+	long mask;
+	for (mask = 1; mask != 0; mask = mask << ( n & 0xFF)
+	{
+		result |= (x & mask);
+	}
+	return result;
+}

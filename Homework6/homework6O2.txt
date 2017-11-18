@@ -1,0 +1,5 @@
+The difference when we increased the optimization to -O2:
+	We didn't make a function call to len1
+	Uses algorithm that isn't len1's to calculate output (loop)
+	There is more alignment occuring, thus allowing an increased efficiency of the program.
+	 

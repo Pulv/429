@@ -1,0 +1,57 @@
+1.
+doublePrecisionAddition:
+	addq  %rsi, %rcx
+	adcq  %rdi, %rdx
+	movq  %rdx, %rbx
+	movq  %rcx, %rax
+	ret
+
+2:
+	a)%rdx
+	b)%rax
+	c)15
+
+3:
+	a) a = 9
+	b) b = 5
+
+4:
+a)
+proc:
+	movl 	$0, %edx			#Sets i  variable to 0
+	movl 	$0, %eax			#Sets count variable to 0
+	jmp 	.L2				#Jumps to the loop
+.L4:
+	movslq 	%edx, %rcx  			#Rcx (i)  is index of array a
+	testb 	$1, (%rdi, %rcx, 8)		#1 & a[i]
+	jne 	.L3				#If Zero flag is not set, jump to L3
+	addq 	$1, %rax			#count++
+.L3:
+	addl 	$1, %edx			#i++
+.L2:
+	movslq 	%edx, %rcx 			#Move i into %rcx
+	cmpq 	%rsi, %rcx			#Compares and checks if i < len
+	jl		.L4			#Jumps to loop again if i < len
+	ret					#return
+
+b)
+long proc( long a[], long len )
+{
+	long count = 0;
+	int i;
+
+	for (i = 0; i < len; i++){
+		if(!(a[i] && 1)){
+		count++;
+		}
+	}
+	return count;
+}
+
+
+c)
+This program computes the amount of even numbers in the array a[].
+
+d)
+I used O1 optimization of proc.
+	A difference is that if len = 0, it immediately jumps to end and returns 0. My proc also had 2 jumps vses the 4 of the original proc assembly code. 

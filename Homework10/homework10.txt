@@ -1,0 +1,32 @@
+1)
+a)
+	When you do naive pipelining, the value of rbx and rax will not be set to the expected value by the time the addq instruction is called. 
+	%rax becomes available at time 6
+	%rbx becomes available at time 7
+	addq requests at time 4
+b)
+	irmovq $3, %rax
+	irmovq $4, %rbx
+	nopq
+	nopq
+	nopq
+	addq   %rax, %rbx
+c)
+	The bubbles and stalls allows the programmer to not use nops continuously. The program will stall until the values are set and then continue when they are ready.
+d)
+	When lines 1 and 2 both reach the execute stage, addq can go fetch those values and immediately push them into their respective registers, and send them down to addq. Addq does not need to wait on memory and writeback stages to continue.
+
+2.
+	
+3.
+a)
+	Tavgseek = 4ms
+	Tavgrotation = 2ms
+	Tmaxrotation = 4ms
+	If all the blocks were continuous, then all you need to do is rotate the disk 4 times.
+	4 + 2 + 4*4 = 22ms
+	
+b)
+
+	(Tavgseek + Tavgrotation)*4000 = (4+2)*4000 = 24000ms = 24s
+	

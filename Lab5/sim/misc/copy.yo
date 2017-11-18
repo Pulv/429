@@ -1,0 +1,60 @@
+                            | #Pablo Velasco
+                            | #pcv256
+                            | 
+0x000:                      | 	.pos 0
+0x000:                      | init:
+0x000: 30f40001000000000000 | 	irmovq Stack, %rsp
+0x00a: 804800000000000000   | 	call main
+0x013: 00                   | 	halt
+                            | 
+                            | 	
+0x018:                      | .align 8
+0x018:                      | src:
+0x018: 0a00000000000000     | 	.quad 0x00a
+0x020: b000000000000000     | 	.quad 0x0b0
+0x028: 000c000000000000     | 	.quad 0xc00
+0x030:                      | dest:
+0x030: 1101000000000000     | 	.quad 0x111
+0x038: 2202000000000000     | 	.quad 0x222
+0x040: 3303000000000000     | 	.quad 0x333
+                            | 
+                            | 
+0x048:                      | main:
+0x048: 30f71800000000000000 | 	irmovq src, %rdi
+0x052: 30f63000000000000000 | 	irmovq dest, %rsi
+0x05c: 30f91800000000000000 | 	irmovq src, %r9
+0x066: 30fd0100000000000000 | 	irmovq $1, %r13
+0x070: 63ee                 | 	xorq %r14, %r14
+0x072:                      | loopMain:
+0x072: 50990000000000000000 | 	mrmovq (%r9), %r9
+0x07c: 6299                 | 	andq %r9, %r9
+0x07e: 739400000000000000   | 	je exit
+0x087: 60de                 | 	addq %r13, %r14
+0x089: 60d9                 | 	addq %r13, %r9
+0x08b: 747200000000000000   | 	jne loopMain
+0x094:                      | exit:
+0x094: 20e2                 | 	rrmovq %r14, %rdx
+0x096: 80a000000000000000   | 	call  copy_block
+0x09f: 90                   | 	ret
+                            | 
+0x0a0:                      | copy_block:
+0x0a0:                      | begin:
+0x0a0: 30fb0100000000000000 | 	irmovq $1, %r11
+0x0aa: 30f80800000000000000 | 	irmovq $8, %r8
+0x0b4: 6300                 | 	xorq %rax, %rax
+0x0b6: 63aa                 | 	xorq %r10, %r10
+0x0b8:                      | loop:
+0x0b8: 50a70000000000000000 | 	mrmovq (%rdi), %r10
+0x0c2: 6087                 | 	addq %r8, %rdi
+0x0c4: 40a60000000000000000 | 	rmmovq %r10, (%rsi)
+0x0ce: 6086                 | 	addq %r8, %rsi
+0x0d0: 63a0                 | 	xorq %r10, %rax
+0x0d2: 61b2                 | 	subq %r11, %rdx
+0x0d4: 2021                 | 	rrmovq %rdx, %rcx
+0x0d6: 6211                 | 	andq %rcx, %rcx
+0x0d8: 76b800000000000000   | 	jg loop
+0x0e1:                      | end:
+0x0e1: 90                   | 	ret 
+                            | 
+0x100:                      | 	.pos 0x100
+0x100:                      | Stack:

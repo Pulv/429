@@ -1,0 +1,51 @@
+# You can modify this portion
+        # Loop header
+        #r11 for even
+        #xorq %rax,%rax         # count = 0;
+        irmovq $1, %r11
+        andq %rdx,%rdx          # len <= 0?
+        jle Done                # if so, goto Done:
+        andq %rdx, %r11
+        je Even
+        jmp Loop
+
+Even:
+        mrmovq (%rdi), %r12
+        mrmovq 8(%rdi), %r13
+        rmmovq %r12, (%rsi)
+        rmmovq %r13, 8(%rsi)
+        andq %r12, %r12
+        jle notPos
+        iaddq $1, %rax
+notPos:
+        andq %r13, %r13
+        jle finishEven
+        iaddq $1, %rax
+finishEven:
+        iaddq $16, %rdi
+        iaddq $16, %rsi
+        iaddq $-2, %rdx
+        jg Even
+        jmp Done
+Loop:
+        mrmovq (%rdi), %r10     # read val from src...
+        rmmovq %r10, (%rsi)     # ...and store it to dst
+        andq %r10, %r10
+        jle Npos                # if so, goto Npos:
+        iaddq $1, %rax
+Npos:
+        iaddq $8, %rdi          # src++
+        iaddq $8, %rsi          # dst++ 
+        iaddq $-1, %rdx         #len--
+        jg Even                 # if so, goto Loop:
+
+
+
+if (even)
+	go to 4loop
+
+4loop
+	if (rdx * 2 - 4 > 0)
+	....
+	else goto even
+	goto4loop
